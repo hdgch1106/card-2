@@ -1,0 +1,13 @@
+[build]
+  # Directorio donde están tus archivos
+  publish = "public"
+  
+[build.environment]
+  # Variables de entorno si las necesitas
+  NODE_VERSION = "18"
+
+[[redirects]]
+  # Redirigir todas las rutas al index.html (para SPAs)
+  from = "/*"
+  to = "/index.html"
+  status = 200

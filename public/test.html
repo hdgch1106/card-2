@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Button</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 50px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #FFE5B4, #FFD700);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .test-button {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border: none;
+            border-radius: 50px;
+            padding: 20px 40px;
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+            z-index: 999;
+            margin: 20px;
+        }
+        
+        .test-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de Botón</h1>
+    
+    <button class="test-button" onclick="testFunction()">
+        Botón de Prueba 1
+    </button>
+    
+    <button class="test-button" id="testBtn2">
+        Botón de Prueba 2
+    </button>
+    
+    <div id="result"></div>
+    
+    <script>
+        function testFunction() {
+            document.getElementById('result').innerHTML = '<p style="color: green;">✅ Botón 1 funciona!</p>';
+            console.log('Botón 1 clickeado');
+        }
+        
+        document.getElementById('testBtn2').addEventListener('click', function() {
+            document.getElementById('result').innerHTML = '<p style="color: blue;">✅ Botón 2 funciona!</p>';
+            console.log('Botón 2 clickeado');
+        });
+        
+        console.log('Script de prueba cargado');
+    </script>
+</body>
+</html>
