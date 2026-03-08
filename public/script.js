@@ -1,12 +1,15 @@
 // Variables globales
 let isTransitioning = false;
+let heartClickCount = 0;
+
+console.log('Script cargado correctamente ✓');
 
 // Función principal para iniciar la experiencia
 function startMainExperience() {
-    console.log('Botón presionado!');
+    console.log('🎉 Iniciando experiencia de cumpleaños para Angela...');
     
     if (isTransitioning) {
-        console.log('Ya en transición');
+        console.log('⚠️ Ya en transición');
         return;
     }
     
@@ -16,114 +19,200 @@ function startMainExperience() {
     const mainScreen = document.getElementById('main-screen');
     
     if (!initialScreen || !mainScreen) {
-        console.error('Pantallas no encontradas');
+        console.error('❌ Pantallas no encontradas');
+        console.log('initialScreen:', initialScreen);
+        console.log('mainScreen:', mainScreen);
         return;
     }
     
-    console.log('Iniciando transición...');
+    console.log('✓ Pantallas encontradas, iniciando transición...');
     
     // Ocultar pantalla inicial
     initialScreen.style.transition = 'all 0.8s ease';
     initialScreen.style.transform = 'scale(0.8)';
     initialScreen.style.opacity = '0';
     
-    // Mostrar pantalla principal después de un momento
+    // Mostrar pantalla principal
     setTimeout(() => {
         initialScreen.style.display = 'none';
         mainScreen.style.display = 'flex';
         mainScreen.classList.add('active');
         
-        console.log('Transición completada');
+        console.log('✓ Transición completada');
         
-        // Iniciar efectos después de la transición
+        // Iniciar efectos
         startEffects();
     }, 800);
 }
 
-// Función para iniciar los efectos de la pantalla principal
+// Iniciar efectos de la pantalla principal
 function startEffects() {
-    console.log('Iniciando efectos...');
+    console.log('Iniciando efectos médicos...');
     
-    // Iniciar lluvia de pétalos
-    setTimeout(() => createPetalsEffect(), 500);
+    // Crear partículas flotantes
+    setTimeout(() => createParticlesEffect(), 500);
     
-    // Iniciar animación del mensaje
+    // Animar mensaje
     setTimeout(() => animateMessage(), 1000);
     
-    // Mostrar pista de interactividad
-    setTimeout(() => showInteractionHint(), 6000);
+    // Agregar interactividad al corazón
+    setTimeout(() => setupHeartInteraction(), 2000);
+    
+    // Mostrar pista de interacción
+    setTimeout(() => showInteractionHint(), 8000);
 }
 
-// Crear efecto de pétalos
-function createPetalsEffect() {
-    const petalsContainer = document.getElementById('petals-container');
-    if (!petalsContainer) return;
+// Crear efecto de partículas médicas
+function createParticlesEffect() {
+    const container = document.getElementById('particles-container');
+    if (!container) return;
     
     setInterval(() => {
-        createSinglePetal();
-    }, 300);
+        createSingleParticle();
+    }, 400);
     
-    // Crear algunos pétalos iniciales
-    for (let i = 0; i < 10; i++) {
-        setTimeout(() => createSinglePetal(), i * 100);
+    // Crear algunas partículas iniciales
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => createSingleParticle(), i * 150);
     }
 }
 
-// Crear un pétalo individual
-function createSinglePetal() {
-    const petalsContainer = document.getElementById('petals-container');
-    if (!petalsContainer) return;
+// Crear una partícula individual
+function createSingleParticle() {
+    const container = document.getElementById('particles-container');
+    if (!container) return;
     
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    petal.textContent = Math.random() > 0.5 ? '🌼' : '🌻';
+    const icons = ['💙', '✨', '🎈', '🎉', '🌟', '💗'];
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.textContent = icons[Math.floor(Math.random() * icons.length)];
     
-    petal.style.left = Math.random() * 100 + '%';
-    petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
-    petal.style.fontSize = (Math.random() * 0.5 + 1) + 'rem';
+    particle.style.position = 'absolute';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.bottom = '-50px';
+    particle.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+    particle.style.opacity = Math.random() * 0.6 + 0.3;
+    particle.style.animation = `particleFloat ${Math.random() * 2 + 3}s ease-out forwards`;
+    particle.style.pointerEvents = 'none';
     
-    petalsContainer.appendChild(petal);
+    container.appendChild(particle);
     
     // Remover después de la animación
     setTimeout(() => {
-        if (petal.parentNode) {
-            petal.parentNode.removeChild(petal);
+        if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
         }
-    }, 7000);
+    }, 5000);
 }
 
-// Animar el mensaje línea por línea
+// Animar mensaje línea por línea
 function animateMessage() {
     const messageLines = document.querySelectorAll('.message-line');
     
     messageLines.forEach((line, index) => {
+        const delay = parseInt(line.getAttribute('data-delay') || index);
         setTimeout(() => {
-            line.style.opacity = '1';
-            line.style.transform = 'translateY(0)';
+            line.classList.add('show');
             
             // Efecto especial para la línea final
-            if (line.classList.contains('final-line')) {
+            if (line.classList.contains('final')) {
                 setTimeout(() => {
-                    createHeartEffect();
+                    createCelebrationEffect();
                 }, 500);
             }
-        }, index * 1500);
+        }, delay * 1200);
     });
 }
 
-// Crear efecto de corazones
-function createHeartEffect() {
-    for (let i = 0; i < 5; i++) {
+// Crear efecto de celebración
+function createCelebrationEffect() {
+    const emojis = ['🎉', '🎊', '✨', '🎂', '🎈'];
+    
+    for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.position = 'fixed';
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.top = '80%';
+            emoji.style.fontSize = '2rem';
+            emoji.style.pointerEvents = 'none';
+            emoji.style.zIndex = '1000';
+            emoji.style.animation = 'loveFloat 3s ease-out forwards';
+            
+            document.body.appendChild(emoji);
+            
+            setTimeout(() => {
+                if (emoji.parentNode) {
+                    emoji.parentNode.removeChild(emoji);
+                }
+            }, 3000);
+        }, i * 150);
+    }
+}
+
+// Configurar interactividad del corazón
+function setupHeartInteraction() {
+    const heartIcon = document.querySelector('.heart-icon');
+    if (!heartIcon) return;
+    
+    heartIcon.style.cursor = 'pointer';
+    heartIcon.addEventListener('click', handleHeartClick);
+    heartIcon.addEventListener('touchstart', handleHeartClick, { passive: true });
+}
+
+// Manejar clic en la foto
+function handlePhotoClick() {
+    console.log('Foto clickeada! 📸');
+    
+    const photo = document.querySelector('.angela-photo');
+    if (!photo) return;
+    
+    // Efecto de brillo en la foto
+    photo.style.transform = 'scale(1.1)';
+    photo.style.filter = 'brightness(1.15) saturate(1.2)';
+    
+    setTimeout(() => {
+        photo.style.transform = '';
+        photo.style.filter = 'brightness(1.05)';
+    }, 500);
+    
+    // Crear efecto de corazones alrededor de la foto
+    createPhotoHearts();
+}
+
+// Crear corazones alrededor de la foto
+function createPhotoHearts() {
+    const photo = document.querySelector('.photo-container');
+    if (!photo) return;
+    
+    const rect = photo.getBoundingClientRect();
+    const icons = ['💙', '💗', '✨', '🎈', '🎉'];
+    
+    for (let i = 0; i < 8; i++) {
         setTimeout(() => {
             const heart = document.createElement('div');
-            heart.textContent = '💛';
+            heart.textContent = icons[Math.floor(Math.random() * icons.length)];
             heart.style.position = 'fixed';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.top = '80%';
-            heart.style.fontSize = '2rem';
+            heart.style.left = rect.left + rect.width / 2 + 'px';
+            heart.style.top = rect.top + rect.height / 2 + 'px';
+            heart.style.fontSize = '1.5rem';
             heart.style.pointerEvents = 'none';
-            heart.style.zIndex = '100';
-            heart.style.animation = 'heartFloat 3s ease-out forwards';
+            heart.style.zIndex = '1000';
+            
+            // Dirección aleatoria
+            const angle = (Math.PI * 2 * i) / 8;
+            const distance = 80 + Math.random() * 40;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            heart.animate([
+                { transform: 'translate(0, 0) scale(0)', opacity: 1 },
+                { transform: `translate(${tx}px, ${ty}px) scale(1.5)`, opacity: 0 }
+            ], {
+                duration: 1500,
+                easing: 'ease-out'
+            });
             
             document.body.appendChild(heart);
             
@@ -131,139 +220,147 @@ function createHeartEffect() {
                 if (heart.parentNode) {
                     heart.parentNode.removeChild(heart);
                 }
-            }, 3000);
-        }, i * 200);
+            }, 1500);
+        }, i * 80);
     }
 }
 
-// Mostrar pista de interactividad
-function showInteractionHint() {
-    const hint = document.createElement('div');
-    hint.innerHTML = '✨ Toca a Evo para más magia ✨';
-    hint.style.position = 'fixed';
-    hint.style.bottom = '20px';
-    hint.style.left = '50%';
-    hint.style.transform = 'translateX(-50%)';
-    hint.style.background = 'rgba(255, 215, 0, 0.9)';
-    hint.style.padding = '12px 24px';
-    hint.style.borderRadius = '25px';
-    hint.style.fontSize = '1rem';
-    hint.style.color = '#333';
-    hint.style.zIndex = '1000';
-    hint.style.animation = 'pulse 2s infinite';
-    hint.style.boxShadow = '0 4px 15px rgba(255, 215, 0, 0.3)';
+// Manejar clic en el corazón
+function handleHeartClick(event) {
+    // Prevenir que el evento se dispare múltiples veces en touch
+    if (event.type === 'touchstart') {
+        event.preventDefault();
+    }
     
-    document.body.appendChild(hint);
+    heartClickCount++;
     
+    // Efecto visual en el corazón
+    const heart = event.target;
+    heart.style.transform = 'scale(1.3)';
     setTimeout(() => {
-        if (hint.parentNode) {
-            hint.style.animation = 'fadeOut 1s forwards';
-            setTimeout(() => {
-                if (hint.parentNode) {
-                    hint.parentNode.removeChild(hint);
-                }
-            }, 1000);
-        }
-    }, 5000);
+        heart.style.transform = '';
+    }, 300);
+    
+    // Crear partículas de amor
+    createLoveParticles(event);
+    
+    // Ocultar pista después del primer clic
+    if (heartClickCount === 1) {
+        hideInteractionHint();
+    }
+    
+    // Mensajes especiales según número de clics
+    if (heartClickCount === 5) {
+        showSpecialMessage('Angela, guárdame cheesecake 🍰');
+    } else if (heartClickCount === 10) {
+        showSpecialMessage('¡Qué chevere conocerte! ✨');
+    } else if (heartClickCount === 15) {
+        showSpecialMessage('¡Que cumplas todos tus sueños! 🎉');
+    }
 }
 
-// Manejar interacción con la imagen
-function handleImageClick() {
-    const image = document.querySelector('.evonny-image');
-    if (!image) return;
+// Crear partículas de amor al hacer clic
+function createLoveParticles(event) {
+    const icons = ['💙', '💗', '💖', '✨', '🎈', '🌟'];
     
-    // Efecto de brillo
-    image.style.filter = 'brightness(1.3) saturate(1.5) drop-shadow(0 0 30px #FFD700)';
-    image.style.transform = 'scale(1.1)';
+    // Obtener la posición del objetivo
+    const target = event.target || event.currentTarget;
+    const rect = target.getBoundingClientRect();
     
-    setTimeout(() => {
-        image.style.filter = '';
-        image.style.transform = '';
-    }, 1000);
-    
-    // Crear flores mágicas
-    createMagicFlowers();
-}
-
-// Crear flores mágicas al tocar
-function createMagicFlowers() {
-    const image = document.querySelector('.evonny-image');
-    if (!image) return;
-    
-    const rect = image.getBoundingClientRect();
-    
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 6; i++) {
         setTimeout(() => {
-            const flower = document.createElement('div');
-            flower.textContent = ['🌼', '🌻', '🌸', '💐'][Math.floor(Math.random() * 4)];
-            flower.style.position = 'fixed';
-            flower.style.left = rect.left + rect.width/2 + 'px';
-            flower.style.top = rect.top + rect.height/2 + 'px';
-            flower.style.fontSize = '1.5rem';
-            flower.style.pointerEvents = 'none';
-            flower.style.zIndex = '999';
+            const particle = document.createElement('div');
+            particle.className = 'love-particle';
+            particle.textContent = icons[Math.floor(Math.random() * icons.length)];
             
-            const angle = (i / 8) * Math.PI * 2;
-            const distance = 100;
-            const endX = rect.left + rect.width/2 + Math.cos(angle) * distance;
-            const endY = rect.top + rect.height/2 + Math.sin(angle) * distance;
+            particle.style.position = 'fixed';
+            particle.style.left = rect.left + rect.width / 2 + 'px';
+            particle.style.top = rect.top + rect.height / 2 + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1000';
             
-            flower.animate([
-                { transform: 'translate(0, 0) scale(0)', opacity: 1 },
-                { transform: `translate(${endX - (rect.left + rect.width/2)}px, ${endY - (rect.top + rect.height/2)}px) scale(1.5)`, opacity: 0 }
-            ], {
-                duration: 2000,
-                easing: 'ease-out'
-            });
+            // Dirección aleatoria
+            const angle = (Math.PI * 2 * i) / 6;
+            const distance = 50 + Math.random() * 50;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
             
-            document.body.appendChild(flower);
+            particle.style.setProperty('--tx', tx + 'px');
+            particle.style.setProperty('--ty', ty + 'px');
+            
+            document.body.appendChild(particle);
             
             setTimeout(() => {
-                if (flower.parentNode) {
-                    flower.parentNode.removeChild(flower);
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
                 }
             }, 2000);
-        }, i * 100);
+        }, i * 50);
     }
 }
 
-// Inicialización cuando el documento esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Documento cargado');
+// Mostrar pista de interacción
+function showInteractionHint() {
+    const hint = document.getElementById('interaction-hint');
+    if (!hint) return;
     
-    // Configurar evento de la imagen si existe
-    setTimeout(() => {
-        const image = document.querySelector('.evonny-image');
-        if (image) {
-            image.addEventListener('click', handleImageClick);
-            image.addEventListener('touchstart', handleImageClick);
-            image.style.cursor = 'pointer';
-        }
-    }, 1000);
-});
-
-// Hacer función global para el onclick del HTML
-window.startMainExperience = startMainExperience;
-
-// Secuencia principal de animaciones
-function startMainSequence() {
-    // Iniciar lluvia de pétalos
-    setTimeout(() => startPetalRain(), 1000);
-    
-    // Iniciar animación del mensaje
-    setTimeout(() => startMessageAnimation(), 1500);
-    
-    // Iniciar efectos de brillo
-    setTimeout(() => startSparkleEffects(), 2000);
-    
-    // Habilitar interactividad después del mensaje
-    setTimeout(() => {
-        messageAnimationComplete = true;
-        showTouchHint();
-    }, 8000);
+    hint.style.display = 'block';
 }
 
-// Iniciar lluvia de pétalos
+// Ocultar pista de interacción
+function hideInteractionHint() {
+    const hint = document.getElementById('interaction-hint');
+    if (!hint) return;
+    
+    hint.classList.add('hidden');
+    setTimeout(() => {
+        hint.style.display = 'none';
+    }, 500);
+}
+
+// Mostrar mensaje especial
+function showSpecialMessage(text) {
+    const message = document.createElement('div');
+    message.textContent = text;
+    message.style.position = 'fixed';
+    message.style.top = '50%';
+    message.style.left = '50%';
+    message.style.transform = 'translate(-50%, -50%)';
+    message.style.background = 'linear-gradient(135deg, #4A90E2, #2E5C8A)';
+    message.style.color = 'white';
+    message.style.padding = '1.5rem 2.5rem';
+    message.style.borderRadius = '20px';
+    message.style.fontSize = '1.5rem';
+    message.style.fontFamily = "'Dancing Script', cursive";
+    message.style.fontWeight = '700';
+    message.style.zIndex = '10000';
+    message.style.boxShadow = '0 10px 40px rgba(74, 144, 226, 0.5)';
+    message.style.animation = 'messageAppear 0.5s ease-out';
+    message.style.pointerEvents = 'none';
+    message.style.textAlign = 'center';
+    
+    document.body.appendChild(message);
+    
+    setTimeout(() => {
+        message.style.animation = 'hintFadeOut 0.5s ease forwards';
+        setTimeout(() => {
+            if (message.parentNode) {
+                message.parentNode.removeChild(message);
+            }
+        }, 500);
+    }, 2500);
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Tarjeta de cumpleaños lista para Angela 💙');
+    
+    // Asegurar que la pantalla inicial esté visible
+    const initialScreen = document.getElementById('initial-screen');
+    if (initialScreen) {
+        initialScreen.classList.add('active');
+    }
+});
 function startPetalRain() {
     // Crear pétalos continuamente
     setInterval(createPetal, 300);

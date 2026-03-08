@@ -2,302 +2,87 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para ti, Evonny 🌼</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #FFF8DC 0%, #FFE5B4 50%, #FFD700 100%);
-            min-height: 100vh;
-            overflow: hidden;
-        }
-
-        .screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.8s ease;
-        }
-
-        .screen.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        #initial-screen {
-            flex-direction: column;
-            text-align: center;
-            padding: 2rem;
-            z-index: 100;
-        }
-
-        .main-title {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(2rem, 6vw, 3rem);
-            color: #8B4513;
-            margin-bottom: 3rem;
-            text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.3);
-        }
-
-        .discover-button {
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            border: none;
-            border-radius: 50px;
-            padding: 1.2rem 2.5rem;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #333;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-            transition: all 0.3s ease;
-            min-width: 250px;
-            z-index: 1000;
-            position: relative;
-        }
-
-        .discover-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
-        }
-
-        .discover-button:active {
-            transform: translateY(-1px);
-        }
-
-        #main-screen {
-            flex-direction: column;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .evonny-image {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 8px solid #FFD700;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            margin-bottom: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .evonny-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
-        }
-
-        .message-container {
-            max-width: 90%;
-            margin: 0 auto;
-        }
-
-        .message-line {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-            line-height: 1.6;
-            color: #8B4513;
-            margin: 0.8rem 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s ease;
-        }
-
-        .message-line.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .final-line {
-            font-weight: 700;
-            color: #B8860B;
-            font-size: clamp(1.5rem, 5vw, 2rem);
-            text-shadow: 1px 1px 3px rgba(255, 215, 0, 0.5);
-        }
-
-        .petals-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .petal {
-            position: absolute;
-            top: -50px;
-            animation: petalFall 5s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes petalFall {
-            0% {
-                transform: translateY(-50px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(calc(100vh + 50px)) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes heartFloat {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="description" content="Feliz cumpleaños Angela - 20 años">
+    <title>Feliz Cumpleaños Angela 💙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Pantalla Inicial -->
-    <div id="initial-screen" class="screen active">
-        <h1 class="main-title">Para la psicóloga Evo 🌼</h1>
-        <button class="discover-button" onclick="startExperience()">
-            Toca para descubrir
-        </button>
-    </div>
-
-    <!-- Pantalla Principal -->
-    <div id="main-screen" class="screen">
-        <div class="petals-container" id="petals-container"></div>
+    <!-- Pantalla inicial -->
+    <div class="screen active" id="initial-screen">
+        <div class="animated-bg">
+            <div class="heartbeat-line"></div>
+            <div class="floating-elements">
+                <span class="float-icon" style="top: 15%; left: 10%;">✨</span>
+                <span class="float-icon" style="top: 25%; right: 15%;">🎈</span>
+                <span class="float-icon" style="bottom: 20%; left: 15%;">💙</span>
+                <span class="float-icon" style="bottom: 15%; right: 20%;">🎉</span>
+                <span class="float-icon" style="top: 60%; left: 25%;">🌟</span>
+                <span class="float-icon" style="top: 70%; right: 30%;">🎂</span>
+            </div>
+        </div>
         
-        <img src="evi.png" alt="Evonny con flores amarillas" class="evonny-image" onclick="createMagicFlowers()">
-        
-        <div class="message-container" id="message-container">
-            <p class="message-line">Hoy quiero regalarte flores amarillas 🌼</p>
-            <p class="message-line">porque iluminan como tu sonrisa</p>
-            <p class="message-line">y representan lo valiosa que eres.</p>
-            <p class="message-line final-line">Con cariño, Hugo 💛</p>
+        <div class="content">
+            <h1 class="main-title">Hay una sorpresa<br>esperando por ti...</h1>
+            <button class="discover-button" onclick="startMainExperience()" type="button">
+                ✨ Descubrir ✨
+            </button>
         </div>
     </div>
 
-    <script>
-        console.log('Página cargada');
+    <!-- Pantalla principal -->
+    <div class="screen" id="main-screen">
+        <div id="particles-container"></div>
+        
+        <div class="card-container">
+            <!-- Foto de Angela -->
+            <div class="photo-container">
+                <img src="unnamed.jpg" alt="Angela" class="angela-photo" onclick="handlePhotoClick()">
+                <div class="heart-overlay">
+                    <span class="heart-icon" onclick="handleHeartClick(event)">💙</span>
+                </div>
+            </div>
 
-        function startExperience() {
-            console.log('¡Botón presionado!');
-            
-            const initialScreen = document.getElementById('initial-screen');
-            const mainScreen = document.getElementById('main-screen');
-            
-            // Transición suave
-            initialScreen.style.transform = 'scale(0.8)';
-            initialScreen.style.opacity = '0';
-            
-            setTimeout(() => {
-                initialScreen.classList.remove('active');
-                mainScreen.classList.add('active');
-                
-                // Iniciar efectos
-                setTimeout(() => startMainEffects(), 500);
-            }, 800);
-        }
+            <!-- Nombre y edad -->
+            <div class="birthday-header">
+                <h2 class="name-title">Angela</h2>
+                <div class="age-badge">
+                    <span class="age-number">20</span>
+                    <span class="age-text">años</span>
+                </div>
+            </div>
 
-        function startMainEffects() {
-            // Animar mensajes
-            const messageLines = document.querySelectorAll('.message-line');
-            messageLines.forEach((line, index) => {
-                setTimeout(() => {
-                    line.classList.add('show');
-                }, index * 1500);
-            });
+            <!-- Mensaje principal -->
+            <div class="message-container">
+                <p class="message-line" data-delay="0">Aunque apenas nos estamos conociendo,</p>
+                <p class="message-line" data-delay="1">quiero desearte un feliz cumpleaños muy especial. 🎉</p>
+                <p class="message-line" data-delay="2">Me parece super chevere conversar contigo,</p>
+                <p class="message-line" data-delay="3">y cada charla es una oportunidad de conocernos más. ✨</p>
+                <p class="message-line" data-delay="4">Espero que este año que viene para ti</p>
+                <p class="message-line" data-delay="5">esté lleno de nuevas metas y logros cumplidos. 🌟</p>
+                <p class="message-line" data-delay="6">Espero conocerte pronto en persona</p>
+                <p class="message-line" data-delay="7">y compartir muchas más celebraciones juntos. 💙</p>
+                <p class="message-line final" data-delay="8">¡Feliz cumpleaños, Angela! 🎂</p>
+            </div>
 
-            // Iniciar pétalos
-            setTimeout(() => createPetalsEffect(), 1000);
-        }
+            <!-- Elementos decorativos -->
+            <div class="decorative-elements">
+                <div class="float-emoji" style="top: 10%; right: 5%;">
+                    <span>✨</span>
+                </div>
+                <div class="float-emoji" style="bottom: 10%; left: 5%;">
+                    <span>🎈</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        function createPetalsEffect() {
-            const container = document.getElementById('petals-container');
-            
-            setInterval(() => {
-                const petal = document.createElement('div');
-                petal.className = 'petal';
-                petal.textContent = Math.random() > 0.5 ? '🌼' : '🌻';
-                petal.style.left = Math.random() * 100 + '%';
-                petal.style.fontSize = (Math.random() * 0.5 + 1) + 'rem';
-                
-                container.appendChild(petal);
-                
-                setTimeout(() => {
-                    if (petal.parentNode) {
-                        petal.parentNode.removeChild(petal);
-                    }
-                }, 5000);
-            }, 300);
-        }
-
-        function createMagicFlowers() {
-            const image = document.querySelector('.evonny-image');
-            const rect = image.getBoundingClientRect();
-            
-            for (let i = 0; i < 8; i++) {
-                setTimeout(() => {
-                    const flower = document.createElement('div');
-                    flower.textContent = ['🌼', '🌻', '🌸', '💐'][Math.floor(Math.random() * 4)];
-                    flower.style.position = 'fixed';
-                    flower.style.left = rect.left + rect.width/2 + 'px';
-                    flower.style.top = rect.top + rect.height/2 + 'px';
-                    flower.style.fontSize = '1.5rem';
-                    flower.style.pointerEvents = 'none';
-                    flower.style.zIndex = '999';
-                    
-                    const angle = (i / 8) * Math.PI * 2;
-                    const distance = 100;
-                    const endX = rect.left + rect.width/2 + Math.cos(angle) * distance;
-                    const endY = rect.top + rect.height/2 + Math.sin(angle) * distance;
-                    
-                    flower.animate([
-                        { transform: 'translate(0, 0) scale(0)', opacity: 1 },
-                        { transform: `translate(${endX - (rect.left + rect.width/2)}px, ${endY - (rect.top + rect.height/2)}px) scale(1.5)`, opacity: 0 }
-                    ], {
-                        duration: 2000,
-                        easing: 'ease-out'
-                    });
-                    
-                    document.body.appendChild(flower);
-                    
-                    setTimeout(() => {
-                        if (flower.parentNode) {
-                            flower.parentNode.removeChild(flower);
-                        }
-                    }, 2000);
-                }, i * 100);
-            }
-        }
-
-        // Función global para verificar que funciona
-        window.startExperience = startExperience;
-    </script>
+    <!-- Pista de interacción -->
+    <div id="interaction-hint" class="interaction-hint">
+        <span>Toca la foto o el corazón 💙</span>
+    </div>
 </body>
 </html>
