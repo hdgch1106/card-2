@@ -168,8 +168,8 @@ function handlePhotoClick() {
     const photo = document.querySelector('.angela-photo');
     if (!photo) return;
     
-    // Efecto de brillo en la foto
-    photo.style.transform = 'scale(1.1)';
+    // Efecto de brillo en la foto (escala reducida para evitar desbordamiento)
+    photo.style.transform = 'scale(1.05)';
     photo.style.filter = 'brightness(1.15) saturate(1.2)';
     
     setTimeout(() => {
